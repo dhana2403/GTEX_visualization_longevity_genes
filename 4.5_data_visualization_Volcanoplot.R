@@ -78,8 +78,8 @@ for (tissue_file in tissue_files) {
     ) +
     theme_minimal() +
     theme(
-      panel.background = element_rect(fill = "white"),  # Set panel background to white
-      plot.background = element_rect(fill = "white"),  # Set plot background to white
+      panel.background = element_rect(fill = "white"),  
+      plot.background = element_rect(fill = "white"),  
       axis.text = element_text(size = 12),
       axis.title = element_text(size = 14),
       legend.title = element_text(size = 12),
