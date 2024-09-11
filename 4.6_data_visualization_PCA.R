@@ -54,8 +54,8 @@ for (tissue_file in tissue_files) {
   pc2_var <- round(pca_variance[2], 2)
   
   pca_plot <- ggplot(pca_data, aes(x = PC1, y = PC2, color = Group)) +
-    geom_point(alpha = 0.7, size = 3) + # Adjust size for better visibility
-    scale_color_manual(values = c("black", "red", "blue", "green", "purple", "orange")) + # Adjust colors as needed
+    geom_point(alpha = 0.7, size = 3) + 
+    scale_color_manual(values = c("black", "red", "blue", "green", "purple", "orange")) + 
     labs(
       title = paste("PCA of", tissue_name, "\nPC1:", pc1_var, "%, PC2:", pc2_var, "%"),
       x = paste("Principal Component 1 (", pc1_var, "%)", sep = ""),
@@ -64,8 +64,8 @@ for (tissue_file in tissue_files) {
     ) +
     theme_minimal() +
     theme(
-      panel.background = element_rect(fill = "white"), # Set background to white
-      plot.background = element_rect(fill = "white"), # Set plot background to white
+      panel.background = element_rect(fill = "white"), 
+      plot.background = element_rect(fill = "white"), 
       axis.text = element_text(size = 12),
       axis.title = element_text(size = 14),
       legend.title = element_text(size = 12),
