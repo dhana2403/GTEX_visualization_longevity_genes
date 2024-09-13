@@ -9,20 +9,10 @@ tissue_files <- list.files(path = data_path, pattern = "*.rds", full.names = TRU
 
 tissue_names <- gsub(".rds$", "", basename(tissue_files))
 
-group_labels_list <- list(
-  "Brain-Cortex" = c(rep("20-49", 9), rep("50-59", 18), rep("60-79", 55)),
-  "Heart-AtrialAppendage" = c(rep("20-49", 9), rep("50-59", 20), rep("60-79", 49)), 
-  "Heart-LeftVentricle" = c(rep("20-49", 10), rep("50-59", 14), rep("60-79", 38)),
-  "Kidney-Cortex" = c(rep("20-49", 4), rep("50-59", 3), rep("60-79", 15)),
-  "Liver" = c(rep("20-49", 4), rep("50-59", 8), rep("60-79", 21)),
-  "Lung" = c(rep("20-49", 12), rep("50-59", 24), rep("60-79", 59)),
-  "Muscle-Skeletal" = c(rep("20-49", 16), rep("50-59", 28), rep("60-79", 89)),
-  "Skin-NotSunExposed" = c(rep("20-49", 11), rep("50-59", 20), rep("60-79", 76)),
-  "Skin-SunExposed" = c(rep("20-49", 15), rep("50-59", 26), rep("60-79", 79))
-)
 
-gene_names <- c("MTOR", "FOXO3", "CYC1", "SIRT1", "PTEN", "SIRT3", "RRAS2", "CAT", 
-                "IGF1", "KLOTHO", "IGF1R", "TP53", "SIRT6", "APOE", "RRAS", "SOD1")
+# --- Hidden Code (Available after publication) ---
+# The group labels and gene names are hidden and will be available after the results are published.
+
 
 for (tissue_file in tissue_files) {
 
