@@ -7,16 +7,13 @@ import matplotlib.colors as mcolors
 import os
 from sklearn.preprocessing import StandardScaler
 
-# Define the path to the folder containing normalized count values
-data_path = "/Users/dhanalakshmijothi/Desktop/test/adjusted_sva_py/converted_parquet/"
+data_path = # Specify the path to paraquet files
 
-# Define gene names and selected genes
-gene_names = ["MTOR", "FOXO3", "CYC1", "SIRT1", "PTEN", "SIRT3", "RRAS2", "CAT", 
-              "IGF1", "KLOTHO", "IGF1R", "TP53", "SIRT6", "APOE", "RRAS", "SOD1"]
-selected_genes = ["MTOR", "FOXO3"]
+gene_names = # INPUT GENE NAMES
 
-# Tissues of interest
-tissues_of_interest = ["Brain-Cortex"]
+selected_genes = # SELECT YOUR GENE OF INTEREST
+
+tissues_of_interest = #select your tissue of interest
 
 # Age group mapping for each tissue
 group_labels_dict = {
@@ -30,25 +27,20 @@ age_groups_list = []
 
 # Loop through each tissue file
 for file_name in os.listdir(data_path):
-    if file_name.endswith(".parquet"):  # Adjusted to load .parquet files
+    if file_name.endswith(".parquet"): 
         tissue_name = file_name.replace(".parquet", "")
         
-        # Print available tissue names for debugging
         print(f"Found tissue file: {tissue_name}")
         
-        # Check if the tissue is one of the tissues of interest
         if tissue_name not in tissues_of_interest:
             print(f"Skipping tissue: {tissue_name}")
             continue
         
-        # Load the normalized read counts data from the .parquet file
         tissue_data = pd.read_parquet(os.path.join(data_path, file_name))
         
-        # Ensure the number of gene names matches the number of rows
         if tissue_data.shape[0] != len(gene_names):
             raise ValueError(f"Error: The number of gene names does not match the number of rows in {tissue_name}")
         
-        # Replace rownames with the manually defined gene names
         tissue_data.index = gene_names
         
         # Subset the data for the selected genes
@@ -84,10 +76,7 @@ ordered_age_groups = ['20-49', '50-59', '60-79']
 ordered_indices = annotation_col['AgeGroup'].map(lambda x: ordered_age_groups.index(x))
 combined_data_T = combined_data_T.iloc[np.argsort(ordered_indices)]
 
-# Define colors for annotations
 annotation_colors = {'20-49': '#ff9999', '50-59': '#66b3ff', '60-79': '#99ff99'}
-
-# Convert annotation data to numerical indices
 num_colors = [list(annotation_colors.keys()).index(age) for age in annotation_col['AgeGroup']]
 annotation_image = np.array(num_colors).reshape(-1, 1)
 
@@ -95,7 +84,6 @@ annotation_image = np.array(num_colors).reshape(-1, 1)
 fig = plt.figure(figsize=(8, 4))  # Adjust figure size to fit both plots
 gs = fig.add_gridspec(1, 2, width_ratios=[0.1, 4], wspace=0.01)  # Further reduce width ratio for annotation bar
 
-# Create axes
 ax1 = fig.add_subplot(gs[0])
 ax2 = fig.add_subplot(gs[1])
 
@@ -120,12 +108,12 @@ fig.set_size_inches(num_cols * 0.3, num_rows * 0.3)  # Adjust 0.3 as necessary
 sns.heatmap(
     combined_data_T,
     cmap="coolwarm",
-    annot=True,  # Enable annotations
-    fmt=".2f",  # Format for annotation text (e.g., 2 decimal places)
+    annot=True,  
+    fmt=".2f",  
     linewidths=0.2,
-    cbar_kws={"label": "Expression"},  # Color bar for heatmap values
-    xticklabels=True,  # Ensure x-axis tick labels are removed
-    yticklabels=False,  # Keep y-axis tick labels (genes)
+    cbar_kws={"label": "Expression"},  
+    xticklabels=True,  
+    yticklabels=False,  
     ax=ax2
 )
 
@@ -133,13 +121,11 @@ sns.heatmap(
 patches_list = [patches.Patch(color=color, label=age) for age, color in annotation_colors.items()]
 ax2.legend(handles=patches_list, title="Age Groups", bbox_to_anchor=(1.2, 1), loc='upper left')
 
-# Set titles and labels
 ax2.set_xlabel('Genes', labelpad=20)
-ax2.xaxis.set_label_position('top')  # Adjust label position
+ax2.xaxis.set_label_position('top')  
 
-# Set x-tick labels to be on top of the heatmap
 ax2.xaxis.set_ticks_position('none')  # Hide ticks
-ax2.xaxis.set_tick_params(labeltop=True, labelbottom=False)  # Show labels only on top
+ax2.xaxis.set_tick_params(labeltop=True, labelbottom=False)  
 
 # Save the heatmap as PDF and PNG with larger dimensions
 result_directory = "results_brain_heatmap"
