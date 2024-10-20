@@ -9,7 +9,7 @@ data_path <- "./adjusted_sva"
 tissue_files <- list.files(path = data_path, pattern = "*.rds", full.names = TRUE)
 
 # --- Hidden Code (Available after publication) ---
-# The group labels and gene names are hidden and will be available after the results are published.
+# The group labels and gene names will be available after the results are published.
 
 for (tissue_file in tissue_files) {
 
