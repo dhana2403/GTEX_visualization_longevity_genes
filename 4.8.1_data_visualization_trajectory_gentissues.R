@@ -11,7 +11,7 @@ tissue_names <- gsub(".rds$", "", basename(tissue_files))
 
 
 # --- Hidden Code (Available after publication) ---
-# The group labels and gene names are hidden and will be available after the results are published.
+# The group labels and gene names will be available after the results are published.
 
 
 for (tissue_file in tissue_files) {
