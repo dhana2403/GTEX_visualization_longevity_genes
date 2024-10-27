@@ -37,7 +37,7 @@ for (tissue_file in tissue_files) {
   # Replace rownames with the manually defined gene names
   rownames(normalized_counts) <- gene_names
   
-  # Subset the data for the selected genes (CYC1 and FOXO3)
+  # Subset the data for the selected genes (GENE1 and GENE2)
   tissue_data <- normalized_counts[selected_genes, , drop = FALSE]
   
   # Convert to data frame and transpose
@@ -51,12 +51,12 @@ for (tissue_file in tissue_files) {
 }
 
 # Log-transform the expression data
-expression_data$CYC1_log <- log10(expression_data$CYC1 + 1e-9)  # Log-transform CYC1 expression
-expression_data$FOXO3_log <- log10(expression_data$FOXO3 + 1e-9)  # Log-transform FOXO3 expression
+expression_data$GENE1_log <- log10(expression_data$GENE1 + 1e-9)  
+expression_data$GENE2_log <- log10(expression_data$GENE2 + 1e-9) 
 
 # Perform linear regression analysis
-# Fit a linear regression model: CYC1_log ~ FOXO3_log
-model <- lm(CYC1_log ~ FOXO3_log, data = expression_data)
+# Fit a linear regression model: GENE1_log ~ GENE2_log
+model <- lm(GENE1_log ~ GENE2_log, data = expression_data)
 
 model_summary <- summary(model)
 
@@ -65,12 +65,12 @@ p_value <- model_summary$coefficients[2, 4]  # p-value for the slope
 r_squared <- model_summary$r.squared          # R-squared value
 
 # Plot the regression results
-p <- ggplot(expression_data, aes(x = FOXO3_log, y = CYC1_log)) +
+p <- ggplot(expression_data, aes(x = GENE1_log, y = GENE2_log)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = TRUE, color = "blue") +
-  labs(title = "Regression Analysis: Log-transformed CYC1 vs FOXO3 Expression in Muscle-Skeletal",
-       x = "Log10(FOXO3 Expression + 1e-9)",
-       y = "Log10(CYC1 Expression + 1e-9)") +
+  labs(title = "Regression Analysis: Log-transformed gene1 vs gene2 Expression in tissue of interest",
+       x = "Log10(GENE1 Expression + 1e-9)",
+       y = "Log10(GENE2 Expression + 1e-9)") +
   theme_bw() +  
   
   # Annotate the plot with p-value and R-squared
@@ -82,7 +82,7 @@ p <- ggplot(expression_data, aes(x = FOXO3_log, y = CYC1_log)) +
 result_directory <- "results_regression_analysis"
 dir.create(result_directory, recursive = TRUE, showWarnings = FALSE)
 
-ggsave(file.path(result_directory, 'regression_plot_cyc1_vs_foxo3_beforesva.pdf'), p, width = 10, height = 8)
-ggsave(file.path(result_directory, 'regression_plot_cyc1_vs_foxo3_beforesva.png'), p, width = 10, height = 8, dpi = 300)
+ggsave(file.path(result_directory, 'regression_plot_gene1_vs_gene2_beforesva.pdf'), p, width = 10, height = 8)
+ggsave(file.path(result_directory, 'regression_plot_gene1_vs_gene2_beforesva.png'), p, width = 10, height = 8, dpi = 300)
 
 cat("Regression plot saved to:", result_directory, "\n")
